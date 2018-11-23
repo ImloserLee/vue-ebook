@@ -3,7 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // 字体图标
-import './assets/styles/icon.css'
+import '@/assets/styles/icon.css'
+import '@/assets/styles/global.scss'
 
 Vue.config.productionTip = false
 

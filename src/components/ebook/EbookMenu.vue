@@ -1,28 +1,57 @@
 <template>
-  <transition name="slide-up">
-    <div class="menu-wrapper"
-      :class="{'hide-box-shadow': !menuVisible}"
-      v-show="menuVisible">
-      <div class="icon-wrapper">
-        <span class="icon-menu"></span>
+  <div>
+    <transition name="slide-up">
+      <div class="menu-wrapper"
+        :class="{'hide-box-shadow': !menuVisible || settingVisible >= 0}"
+        v-show="menuVisible">
+        <div class="icon-wrapper">
+          <span class="icon-menu" @click="showSetting(3)"></span>
+        </div>
+        <div class="icon-wrapper">
+          <span class="icon-progress" @click="showSetting(2)"></span>
+        </div>
+        <div class="icon-wrapper">
+          <span class="icon-bright" @click="showSetting(1)"></span>
+        </div>
+        <div class="icon-wrapper">
+          <span class="icon-A" @click="showSetting(0)"></span>
+        </div>
       </div>
-      <div class="icon-wrapper">
-        <span class="icon-progress"></span>
-      </div>
-      <div class="icon-wrapper">
-        <span class="icon-bright"></span>
-      </div>
-      <div class="icon-wrapper">
-        <span class="icon-A"></span>
-      </div>
-    </div>
-  </transition>
+    </transition>
+    <ebook-setting-font></ebook-setting-font>
+    <ebook-setting-font-popup></ebook-setting-font-popup>
+    <ebook-setting-theme></ebook-setting-theme>
+    <ebook-setting-progress></ebook-setting-progress>
+    <ebook-slide></ebook-slide>
+  </div>
 </template>
 
 <script>
+import EbookSettingFont from './EbookSettingFont'
+import EbookSettingFontPopup from './EbookSettingFontPopup'
+import EbookSettingTheme from './EbookSettingTheme'
+import EbookSettingProgress from './EbookSettingProgress'
+import EbookSlide from './EbookSlide'
 import { ebookMixin } from '@/utils/mixin'
 export default {
-  mixins: [ebookMixin]
+  mixins: [ebookMixin],
+  components: {
+    EbookSettingFont,
+    EbookSettingFontPopup,
+    EbookSettingTheme,
+    EbookSettingProgress,
+    EbookSlide
+  },
+  methods: {
+    showSetting(key) {
+      // 点击对应的设置,如果当前设置栏是显示的话就隐藏
+      if (key === this.settingVisible) {
+        this.setSettingVisible(-1)
+      } else {
+        this.setSettingVisible(key)
+      }
+    }
+  }
 }
 </script>
 
